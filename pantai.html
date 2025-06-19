@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Pantai</title>
+    <style>
+        /* CSS untuk styling halaman */
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #tombol-lol {
+            padding: 20px 40px;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #tombol-lol:hover {
+            background-color: #0056b3;
+        }
+
+        #konten-pantai {
+            display: none; /* Sembunyikan gambar pada awalnya */
+            width: 100%;
+            height: auto;
+        }
+        
+        #gambar-pantai {
+            width: 100%;
+            max-height: 80vh; /* Batasi tinggi gambar agar tidak terlalu besar di layar HP */
+            border-radius: 12px;
+            background-color: #e0e0e0;
+            object-fit: cover;
+        }
+
+        #pesan-memuat {
+            display: none; /* Sembunyikan pesan loading pada awalnya */
+            font-size: 18px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <button id="tombol-lol">lol</button>
+
+        <p id="pesan-memuat">Memuat gambar pantai...</p>
+        
+        <div id="konten-pantai">
+            <img id="gambar-pantai" src="" alt="Gambar Pantai Acak">
+        </div>
+    </div>
+
+    <script>
+        // JavaScript untuk logika aplikasi
+        const tombolLol = document.getElementById('tombol-lol');
+        const kontenPantai = document.getElementById('konten-pantai');
+        const gambarPantai = document.getElementById('gambar-pantai');
+        const pesanMemuat = document.getElementById('pesan-memuat');
+
+        // Tambahkan event listener ke tombol
+        tombolLol.addEventListener('click', () => {
+            // Sembunyikan tombol
+            tombolLol.style.display = 'none';
+
+            // Tampilkan pesan "memuat..."
+            pesanMemuat.style.display = 'block';
+
+            // Tampilkan area gambar
+            kontenPantai.style.display = 'block';
+
+            // Atur sumber gambar ke URL Unsplash untuk mendapatkan gambar acak
+            // Menambahkan timestamp unik untuk memastikan gambar baru setiap kali
+            const timestamp = new Date().getTime();
+            gambarPantai.src = `https://source.unsplash.com/random/800x600/?beach,tropical,paradise&t=${timestamp}`;
+
+            // Sembunyikan pesan "memuat..." setelah gambar selesai dimuat
+            gambarPantai.onload = () => {
+                pesanMemuat.style.display = 'none';
+            };
+        });
+    </script>
+
+</body>
+</html>
